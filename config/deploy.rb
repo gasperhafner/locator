@@ -6,7 +6,6 @@ set :repo_url, "git@github.com:gasperhafner/locator.git"
 
 append :linked_files,
        "config/database.yml",
-       "config/secrets.yml",
        "config/initializers/sidekiq.rb",
        ".env"
 
