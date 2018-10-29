@@ -12,7 +12,7 @@ class SendPushNotificationJob < ApplicationJob
 
     return unless city
 
-    if PushLog.last.any?
+    if PushLog.any?
       push_notification if PushLog.last.city.id != city.id
     else
       push_notification
