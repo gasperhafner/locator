@@ -10,6 +10,7 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       execute "sudo systemctl restart rails.service"
+      execute "sudo systemctl restart sidekiq.service"
       #execute "sudo /usr/bin/monit restart sidekiq_staging_laundryheap_com"
     end
   end
