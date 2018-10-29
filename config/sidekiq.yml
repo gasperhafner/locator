@@ -3,6 +3,6 @@
 
 :schedule:
   SendPushNotificationJob:
-    cron: '0 * * * * * Europe/Ljubljana'
+    cron: '*/10 * * * * * Europe/Ljubljana'
     description: >-
       Start sending notifications
