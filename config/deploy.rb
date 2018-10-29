@@ -4,6 +4,15 @@ lock "~> 3.10.1"
 set :application, "locator"
 set :repo_url, "git@github.com:gasperhafner/locator.git"
 
+append :linked_files,
+       "config/database.yml",
+       "config/secrets.yml",
+       "config/initializers/sidekiq.rb",
+       ".env"
+
+append :linked_dirs,
+       "log"
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
