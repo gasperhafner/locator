@@ -1,0 +1,8 @@
+:queues:
+  - default
+
+:schedule:
+  SendPushNotificationJob:
+    cron: '0 * * * * * Europe/Ljubljana'
+    description: >-
+      Start sending notifications
