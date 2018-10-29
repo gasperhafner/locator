@@ -2,7 +2,7 @@ server "207.154.238.233", user: "rails", roles: %w{app db web}
 
 set :deploy_to, "/home/rails/staging-locator"
 set :branch, "develop"
-set :rails_env, "staging"
+set :rails_env, "development"
 
 namespace :deploy do
   desc 'Restart application'
