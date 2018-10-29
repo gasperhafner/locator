@@ -2,18 +2,18 @@ class SendPushNotificationJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    last_location = Location.last
+    @last_location = Location.last
 
-    city =
+    @city =
       City.get_by_location(
-        last_location.latitude,
-        last_location.longitude
+        @last_location.latitude,
+        @last_location.longitude
       )
 
-    return unless city
+    return unless @city
 
     if PushLog.any?
-      push_notification if PushLog.last.city.id != city.id
+      push_notification if PushLog.last.city.id != @city.id
     else
       push_notification
     end
@@ -31,8 +31,8 @@ class SendPushNotificationJob < ApplicationJob
         {
           body: "",
           email: "taty.pegla@gmail.com",
-          title: "Moja trenutna lokacija: #{city.name}",
-          url: "https://maps.google.com/?q=#{last_location.latitude},#{last_location.longitude}",
+          title: "Moja trenutna lokacija: #{@city.name}",
+          url: "https://maps.google.com/?q=#{@last_location.latitude},#{@last_location.longitude}",
           type: "link"
         }
       )
@@ -42,7 +42,7 @@ class SendPushNotificationJob < ApplicationJob
       receiver: response["receiver_email"],
       title: response["title"],
       url: response["url"],
-      city: city
+      city: @city
     )
   end
 end
