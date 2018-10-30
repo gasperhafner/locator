@@ -11,5 +11,35 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
+//= require Leaflet/leaflet-src
+//= require Leaflet/Leaflet.draw
+//= require Leaflet/Leaflet.Draw.Event
+//= require Leaflet/Toolbar
+//= require Leaflet/Tooltip
+//= require Leaflet/GeometryUtil
+//= require Leaflet/LatLngUtil
+//= require Leaflet/LineUtil.Intersect
+//= require Leaflet/Polygon.Intersect
+//= require Leaflet/Polyline.Intersect
+//= require Leaflet/TouchEvents
+//= require Leaflet/DrawToolbar
+//= require Leaflet/Draw.Feature
+//= require Leaflet/Draw.SimpleShape
+//= require Leaflet/Draw.Polyline
+//= require Leaflet/Draw.Marker
+//= require Leaflet/Draw.Circle
+//= require Leaflet/Draw.CircleMarker
+//= require Leaflet/Draw.Polygon
+//= require Leaflet/Draw.Rectangle
+//= require Leaflet/EditToolbar
+//= require Leaflet/EditToolbar.Edit
+//= require Leaflet/EditToolbar.Delete
+//= require Leaflet/Control.Draw
+//= require Leaflet/Edit.Poly
+//= require Leaflet/Edit.SimpleShape
+//= require Leaflet/Edit.Rectangle
+//= require Leaflet/Edit.Marker
+//= require Leaflet/Edit.CircleMarker
+//= require Leaflet/Edit.Circle
+
 //= require_tree .

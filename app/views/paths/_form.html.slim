@@ -1,0 +1,19 @@
+= form_for @path do |f|
+  - if @path.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@path.errors.count, "error")} prohibited this path from being saved:"
+      ul
+        - @path.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :name
+    = f.collection_select(:city_ids,
+            City.order(name: :asc), :id, :name,
+            {include_hidden: false, selected: @path.cities.pluck(:id)},
+            {required: true, size: City.count, include_hidden: false, multiple: true, class: "form-control"})
+
+  .actions = f.submit

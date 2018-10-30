@@ -1,5 +1,4 @@
 class City < ApplicationRecord
-
   has_many :push_logs, dependent: :destroy
   # Spatial representation ID, do not change.
   DEFAULT_SRID = 4326

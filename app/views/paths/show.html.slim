@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @path.name
+p
+  strong User:
+  = @path.user
+
+=> link_to 'Edit', edit_path_path(@path)
+'|
+=< link_to 'Back', paths_path
