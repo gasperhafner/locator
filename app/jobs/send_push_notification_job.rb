@@ -37,6 +37,16 @@ class SendPushNotificationJob < ApplicationJob
         }
       )
 
+    pushbullet_client.create(
+      {
+        body: "",
+        #email: "taty.pegla@gmail.com",
+        title: "Moja trenutna lokacija: #{@city.name}",
+        url: "https://maps.google.com/?q=#{@last_location.latitude},#{@last_location.longitude}",
+        type: "link"
+      }
+    )
+
     PushLog.create!(
       sender: response["sender_email"],
       receiver: response["receiver_email"],
