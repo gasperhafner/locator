@@ -1,5 +1,6 @@
 class City < ApplicationRecord
   has_many :push_logs, dependent: :destroy
+  has_many :path_cities, dependent: :destroy
   # Spatial representation ID, do not change.
   DEFAULT_SRID = 4326
 
@@ -19,5 +20,17 @@ class City < ApplicationRecord
       longitude: longitude,
       latitude: latitude
     )
+  end
+
+  def geojson=(geojson)
+    polygon = RGeo::GeoJSON.decode(geojson, json_parser: :json)
+    coordinates = polygon
+                    .geometry
+                    .coordinates
+                    .first
+                    .map {|pair| pair.join(' ')}
+                    .join(', ')
+    query = "UPDATE cities SET polygon = ST_GeomFromText('POLYGON((#{coordinates}))',4326), updated_at = '#{Time.current.utc.iso8601}' WHERE id = '#{self.id}'"
+    ActiveRecord::Base.connection.execute(query, :skip_logging)
   end
 end

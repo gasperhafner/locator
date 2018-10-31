@@ -24,7 +24,7 @@ class CitiesController < ApplicationController
     @city = City.new(city_params)
 
     if @city.save
-      redirect_to @city, notice: 'City was successfully created.'
+      redirect_to edit_city_path(@city), notice: 'City was successfully created.'
     else
       render :new
     end
@@ -32,8 +32,9 @@ class CitiesController < ApplicationController
 
   # PATCH/PUT /cities/1
   def update
+    # City.create(name: "test", polygon:"POLYGON((35 10, 10 20, 15 40, 45 45, 35 10))")
     if @city.update(city_params)
-      redirect_to @city, notice: 'City was successfully updated.'
+      redirect_to edit_city_path, notice: 'City was successfully updated.'
     else
       render :edit
     end
@@ -54,6 +55,6 @@ class CitiesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def city_params
-    params.require(:city).permit(:name)
+    params.require(:city).permit(:name, :geojson)
   end
 end
