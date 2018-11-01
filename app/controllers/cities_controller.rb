@@ -4,7 +4,11 @@ class CitiesController < ApplicationController
 
   # GET /cities
   def index
-    @cities = City.order(name: :asc).paginate(page: params[:page], per_page: 10)
+    @cities =
+      current_user
+        .cities
+        .order(name: :asc)
+        .paginate(page: params[:page], per_page: 10)
   end
 
   # GET /cities/1
@@ -22,9 +26,7 @@ class CitiesController < ApplicationController
 
   # POST /cities
   def create
-    @city = City.new(city_params)
-
-    if @city.save
+    if current_user.city.create(city_params)
       redirect_to edit_city_path(@city), notice: 'City was successfully created.'
     else
       render :new
@@ -51,7 +53,7 @@ class CitiesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_city
-    @city = City.find(params[:id])
+    @city = current_user.cities.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
