@@ -1,9 +1,10 @@
 class CitiesController < ApplicationController
+  before_action :authenticate!
   before_action :set_city, only: [:show, :edit, :update, :destroy]
 
   # GET /cities
   def index
-    @cities = City.all
+    @cities = City.order(name: :asc).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /cities/1
