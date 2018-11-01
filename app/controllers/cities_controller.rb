@@ -26,7 +26,7 @@ class CitiesController < ApplicationController
 
   # POST /cities
   def create
-    if current_user.city.create(city_params)
+    if current_user.cities.create(city_params)
       redirect_to edit_city_path(@city), notice: 'City was successfully created.'
     else
       render :new
