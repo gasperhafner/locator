@@ -46,7 +46,7 @@ gem 'pry-rails'
 gem 'faraday'
 
 # Database
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 0.18.4'
 gem 'activerecord-postgis-adapter'
 
 # Auth & permissions
