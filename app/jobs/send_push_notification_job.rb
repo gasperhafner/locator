@@ -14,7 +14,7 @@ class SendPushNotificationJob < ApplicationJob
       next unless @city
 
       if user.push_logs.any?
-        send_push_notifications(user) if push_logs.last.city.id != @city.id
+        send_push_notifications(user) if user.push_logs.last.city.id != @city.id
       else
         send_push_notifications(user)
       end
