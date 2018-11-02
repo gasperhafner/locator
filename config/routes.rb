@@ -3,16 +3,18 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
   post "/graphql", to: "graphql#execute"
 
-  root :to => 'application#home'
+  root :to => 'cities#index'
 
   namespace :api do
-    resources :locations do
-      get :current, on: :collection
+    namespace :v1 do
+      resources :locations do
+        get :current, on: :collection
+      end
     end
   end
 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :users, only: [:show]
+  resources :users, only: [:edit, :update]
   resources :paths, only: [:index, :show, :create, :update, :destroy]
   resources :cities, only: [:index, :show, :new, :edit, :create, :update, :destroy]
 

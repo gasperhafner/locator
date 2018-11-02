@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery with: :exception
   helper_method :user_signed_in?
   helper_method :current_user
-  helper_method :authenticate
+  helper_method :authenticate!
 
   def home
 

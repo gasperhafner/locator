@@ -1,0 +1,7 @@
+= form_tag sessions_path, class: "form-signin" do |form|
+  h1.h3.mb-3.font-weight-normal Sign in
+  = label_tag :email
+  = text_field_tag :email, nil, class: "form-control"
+  = label_tag :password
+  = password_field_tag :password, nil, class: "form-control"
+  button.btn.btn-lg.btn-primary.btn-block type="submit"  Sign in

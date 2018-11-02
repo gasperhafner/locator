@@ -31,19 +31,16 @@
   <!-- Sidebar  -->
   <nav id="sidebar">
     <div class="sidebar-header">
-      <h3>Locator</h3>
+      <h3>poisci.ga</h3>
     </div>
 
     <ul class="list-unstyled components">
       <% if user_signed_in? %>
         <li>
-          <a href="<%= paths_path %>">My paths</a>
-        </li>
-        <li>
           <a href="<%= cities_path %>">Polygons</a>
         </li>
         <li>
-          <a href="#">Settings</a>
+          <a href="<%= edit_user_path(current_user) %>">Settings</a>
         </li>
         <li>
           <%= link_to "Log out", logout_path %>
@@ -58,6 +55,16 @@
 
   <!-- Page Content  -->
   <div id="content">
+    <% if notice.present? %>
+      <div class="alert alert-success auto-close-alert">
+        <%= notice.html_safe %>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div class="alert alert-danger auto-close-alert">
+        <%= alert.html_safe %>
+      </div>
+    <% end %>
     <%= yield %>
   </div>
 </div>

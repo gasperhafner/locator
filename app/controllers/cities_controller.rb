@@ -27,7 +27,7 @@ class CitiesController < ApplicationController
   # POST /cities
   def create
     if current_user.cities.create(city_params)
-      redirect_to edit_city_path(@city), notice: 'City was successfully created.'
+      redirect_to cities_path, notice: 'Polygon was successfully created.'
     else
       render :new
     end
@@ -37,7 +37,7 @@ class CitiesController < ApplicationController
   def update
     # City.create(name: "test", polygon:"POLYGON((35 10, 10 20, 15 40, 45 45, 35 10))")
     if @city.update(city_params)
-      redirect_to edit_city_path, notice: 'City was successfully updated.'
+      redirect_to edit_city_path, notice: 'Polygon was successfully updated.'
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class CitiesController < ApplicationController
   # DELETE /cities/1
   def destroy
     @city.destroy
-    redirect_to cities_url, notice: 'City was successfully destroyed.'
+    redirect_to cities_url, notice: 'Polygon was successfully destroyed.'
   end
 
   private
@@ -58,6 +58,6 @@ class CitiesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def city_params
-    params.require(:city).permit(:name, :geojson)
+    params.require(:city).permit(:name, :surface, :geojson)
   end
 end

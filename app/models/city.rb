@@ -14,12 +14,12 @@ class City < ApplicationRecord
       )
     EOS
 
-    find_by(
+    where(
       query,
       srid: DEFAULT_SRID,
       longitude: longitude,
       latitude: latitude
-    )
+    ).order(surface: :asc).first
   end
 
   def geojson=(geojson)

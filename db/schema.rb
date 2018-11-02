@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181101123150) do
+ActiveRecord::Schema.define(version: 20181102152357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20181101123150) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.float "surface"
     t.index ["user_id"], name: "index_cities_on_user_id"
   end
 
@@ -34,6 +35,8 @@ ActiveRecord::Schema.define(version: 20181101123150) do
     t.datetime "time"
     t.string "provider"
     t.float "battery"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
   create_table "path_cities", force: :cascade do |t|
@@ -61,7 +64,9 @@ ActiveRecord::Schema.define(version: 20181101123150) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["city_id"], name: "index_push_logs_on_city_id"
+    t.index ["user_id"], name: "index_push_logs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,13 +78,18 @@ ActiveRecord::Schema.define(version: 20181101123150) do
     t.datetime "magic_link_token_expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "bullet_push_token"
+    t.string "pushbullet_token"
+    t.string "gps_token"
+    t.text "recipient"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["pushbullet_token"], name: "index_users_on_pushbullet_token", unique: true
   end
 
   add_foreign_key "cities", "users"
+  add_foreign_key "locations", "users"
   add_foreign_key "path_cities", "cities"
   add_foreign_key "path_cities", "paths"
   add_foreign_key "paths", "users"
   add_foreign_key "push_logs", "cities"
+  add_foreign_key "push_logs", "users"
 end

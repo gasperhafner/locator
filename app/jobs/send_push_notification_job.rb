@@ -2,57 +2,51 @@ class SendPushNotificationJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    @last_location = Location.last
+    User.where.not(pushbullet_token: nil).each do |user|
+      @last_location = user.locations.last
 
-    @city =
-      City.get_by_location(
-        @last_location.latitude,
-        @last_location.longitude
-      )
+      @city =
+        user.cities.get_by_location(
+          @last_location.latitude,
+          @last_location.longitude
+        )
 
-    return unless @city
+      next unless @city
 
-    if PushLog.any?
-      push_notification if PushLog.last.city.id != @city.id
-    else
-      push_notification
+      if user.push_logs.any?
+        send_push_notifications(user) if push_logs.last.city.id != @city.id
+      else
+        send_push_notifications(user)
+      end
     end
   end
 
   private
 
-  def pushbullet_client
-    Api::Pushbullet::Push.new(access_token: ENV.fetch("BULLETPUSH_TOKEN"))
+  def send_push_notifications(user)
+    user.recipient.split(",").each do |recipient|
+      response =
+        pushbullet_client.create(
+          {
+            body: "",
+            email: recipient,
+            title: "My current location: #{@city.name}",
+            url: "https://maps.google.com/?q=#{@last_location.latitude},#{@last_location.longitude}",
+            type: "link"
+          }
+        )
+
+      PushLog.create!(
+        sender: response["sender_email"],
+        receiver: response["receiver_email"],
+        title: response["title"],
+        url: response["url"],
+        city: @city
+      )
+    end
   end
 
-  def push_notification
-    response =
-      pushbullet_client.create(
-        {
-          body: "",
-          email: "taty.pegla@gmail.com",
-          title: "Moja trenutna lokacija: #{@city.name}",
-          url: "https://maps.google.com/?q=#{@last_location.latitude},#{@last_location.longitude}",
-          type: "link"
-        }
-      )
-
-    pushbullet_client.create(
-      {
-        body: "",
-        #email: "taty.pegla@gmail.com",
-        title: "Moja trenutna lokacija: #{@city.name}",
-        url: "https://maps.google.com/?q=#{@last_location.latitude},#{@last_location.longitude}",
-        type: "link"
-      }
-    )
-
-    PushLog.create!(
-      sender: response["sender_email"],
-      receiver: response["receiver_email"],
-      title: response["title"],
-      url: response["url"],
-      city: @city
-    )
+  def pushbullet_client(access_token)
+    Api::Pushbullet::Push.new(access_token: access_token)
   end
 end
