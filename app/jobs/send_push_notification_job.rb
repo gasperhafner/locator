@@ -39,7 +39,7 @@ class SendPushNotificationJob < ApplicationJob
           }
         )
 
-      PushLog.create!(
+      user.push_logs.create!(
         sender: response["sender_email"],
         receiver: response["receiver_email"],
         title: response["title"],
