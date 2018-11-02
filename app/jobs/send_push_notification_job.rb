@@ -24,6 +24,9 @@ class SendPushNotificationJob < ApplicationJob
   private
 
   def send_push_notifications(user)
+    pushbullet_client =
+      pushbullet_client(user.pushbullet_token)
+
     user.recipient.split(",").each do |recipient|
       response =
         pushbullet_client.create(
