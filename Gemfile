@@ -64,12 +64,6 @@ gem 'sidekiq-failures'
 gem 'sidekiq-limit_fetch'
 gem 'sidekiq-scheduler'
 
-# Tech
-gem 'graphql'
-gem 'graphql-errors'
-gem 'graphql-pundit'
-gem 'graphql-rails-resolver'
-
 # Deployment
 gem 'capistrano-rails', group: :development
 gem 'capistrano-rvm'

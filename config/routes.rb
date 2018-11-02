@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :paths
   mount Sidekiq::Web => '/sidekiq'
-  post "/graphql", to: "graphql#execute"
 
   root :to => 'cities#index'
 
