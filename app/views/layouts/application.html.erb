@@ -58,16 +58,17 @@
         </button>
       </div>
     </nav>
-
-    <% if notice.present? %>
-      <div class="alert alert-success auto-close-alert">
-        <%= notice.html_safe %>
-      </div>
-    <% end %>
-    <% if alert.present? %>
-      <div class="alert alert-danger auto-close-alert">
-        <%= alert.html_safe %>
-      </div>
+    <% if user_signed_in? %>
+      <% if notice.present? %>
+        <div class="alert alert-success auto-close-alert">
+          <%= notice.html_safe %>
+        </div>
+      <% end %>
+      <% if alert.present? %>
+        <div class="alert alert-danger auto-close-alert">
+          <%= alert.html_safe %>
+        </div>
+      <% end %>
     <% end %>
     <%= yield %>
   </div>

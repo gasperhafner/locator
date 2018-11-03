@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181102152357) do
+ActiveRecord::Schema.define(version: 20181103170106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,9 @@ ActiveRecord::Schema.define(version: 20181102152357) do
     t.string "pushbullet_token"
     t.string "gps_token"
     t.text "recipient"
+    t.string "confirmation_token"
+    t.boolean "active", default: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["pushbullet_token"], name: "index_users_on_pushbullet_token", unique: true
   end

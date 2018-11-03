@@ -13,10 +13,15 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to root_path, notice: 'User was successfully created.'
+      flash.now[:login_notice] =  "To finish signing up, confirm your email and you're good to go!"
+      redirect_to root_path, notice: "To finish signing up, confirm your email and you're good to go!"
     else
       render :new
     end
+  end
+
+  def reset_password
+
   end
 
   def update

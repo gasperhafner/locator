@@ -1,13 +1,29 @@
 = form_tag sessions_path, class: "form-signin" do |form|
+  ul.form-response
+    - flash.each do |type, message|
+      - if type == "login_alert"
+        li
+          p.alert.alert-danger
+            = message.html_safe
+      - if type == "notice"
+        li
+          p.alert.alert-success
+            = message.html_safe
+
   h1.h3.mb-3.font-weight-normal Sign in
   = label_tag :email
   = text_field_tag :email, nil, class: "form-control"
   = label_tag :password
   = password_field_tag :password, nil, class: "form-control"
   .row
-    .col-6
+    .col-12
       button.btn.btn-lg.btn-primary.btn-sm.btn-block type="submit"  Sign in
-    .col-6
-      = link_to "Sign up", new_user_path, class:"btn btn-primary btn-sm btn-block"
+  /.row.mt-4
+    .col-12
+      = "Forgot password? #{link_to "Reset password here", new_user_path, class: "btn-link"}".html_safe
+  .row.mt-2
+    .col-12
+      = "Don't have an account? #{link_to "Sign up here", new_user_path, class: "btn-link"}".html_safe
+
 
 

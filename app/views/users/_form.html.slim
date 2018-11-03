@@ -1,21 +1,10 @@
 = form_for current_user do |f|
   - if current_user.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(current_user.errors.count, "error")} prohibited this user from being saved:"
-      ul
-        - current_user.errors.full_messages.each do |message|
-          li = message
-
-  /.form-group.row
-    = f.label :first_name, class: "col-sm-2 col-form-label"
-    .col-sm-10
-      = f.text_field :first_name, class: "form-control"
-
-  /.form-group.row
-    = f.label :last_name, class: "col-sm-2 col-form-label"
-    .col-sm-10
-      = f.text_field :last_name, class: "form-control"
-
+    ul.form-errors
+      - current_user.errors.full_messages.each do |message|
+        li
+          p.alert.alert-danger
+            = message
   .form-group.row
     = f.label :pushbullet_token, value: "Pushbullet access token", class: "col-sm-2 col-form-label"
     .col-sm-10

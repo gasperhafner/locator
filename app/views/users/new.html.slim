@@ -1,9 +1,10 @@
 = form_for @user do |f|
   - if @user.errors.any?
-    #error_explanation
-      ul
-        - @user.errors.full_messages.each do |message|
-          li = message
+    ul.form-response
+      - @user.errors.full_messages.each do |message|
+        li
+          p.alert.alert-danger
+            = message
 
   h1.h3.mb-3.font-weight-normal Sign up
   = f.label :email
@@ -13,7 +14,8 @@
   = f.label :password_confirmation
   = f.password_field :password_confirmation, class: "form-control"
   .row
-    .col-6
+    .col-12
       button.btn.btn-lg.btn-primary.btn-sm.btn-block type="submit"  Sign up
-    .col-6
-      = link_to "Sign in", new_session_path, class: "btn btn-primary btn-sm btn-block"
+  .row.mt-4
+    .col-12
+      = "Already have an account? #{link_to "Sign in here", new_session_path, class: "btn-link"}".html_safe
