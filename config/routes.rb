@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :paths
   mount Sidekiq::Web => '/sidekiq'
 
-  root :to => 'cities#index'
+  root :to => 'users#edit'
 
   namespace :api do
     namespace :v1 do
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :users, only: [:edit, :update, :new]
+  resources :users, only: [:edit, :update, :new, :create]
   resources :paths, only: [:index, :show, :create, :update, :destroy]
   resources :cities, only: [:index, :show, :new, :edit, :create, :update, :destroy]
 

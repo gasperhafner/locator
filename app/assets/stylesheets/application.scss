@@ -75,7 +75,6 @@ a:focus {
 
 #sidebar ul.components {
   padding: 20px 0;
-  border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
@@ -170,39 +169,33 @@ a.article:hover {
   }
 }
 
-.form-signin {
+.new_user, .form-signin {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
-}
 
-.form-signin .checkbox {
-  font-weight: 400;
-}
+  .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .form-control:focus {
+    z-index: 2;
+  }
 
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 }
 
 $mynewcolor: #7386D5;
@@ -216,13 +209,13 @@ $mynewcolor: #7386D5;
 }
 
 .pagination {
-  .page-item{
-    .page-link{
+  .page-item {
+    .page-link {
       color: $mynewcolor;
     }
   }
   .page-item.active {
-    .page-link{
+    .page-link {
       color: #fff;
       background: $mynewcolor;
       border-color: $mynewcolor;
