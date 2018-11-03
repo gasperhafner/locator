@@ -13,10 +13,12 @@ Rails.application.routes.draw do
   end
 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :users, only: [:edit, :update]
+  resources :users, only: [:edit, :update, :new]
   resources :paths, only: [:index, :show, :create, :update, :destroy]
   resources :cities, only: [:index, :show, :new, :edit, :create, :update, :destroy]
 
+  post "send_test_push", to:"users#send_test_push"
+  get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
 end

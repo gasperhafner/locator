@@ -31,13 +31,12 @@
         = "Emails associated with Pushbullet account separated by a comma."
 
   .form-group.row
-    .col-sm-12.text-right
+    .col-sm-2
+    .col-sm-10
       button.btn.btn-primary.btn-sm type="submit" Save
 
 .form-group.row
   label.col-sm-2.col-form-label
     | Test push notification
-  .col-sm-10
-    button.btn.btn-success.btn-sm
-      | Send push notification
-
+  .col-sm-10.test-push-notification
+    = button_to "Send push notification to yourself", send_test_push_path, class:"btn btn-success btn-sm", method: :post, remote: true

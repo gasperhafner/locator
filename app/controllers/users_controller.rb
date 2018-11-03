@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
-  before_action :authenticate!
+  before_action :authenticate!, only: [:edit, :update, :send_test_push]
+
+  def new
+  end
 
   def edit
   end
@@ -12,7 +15,44 @@ class UsersController < ApplicationController
     end
   end
 
+  def send_test_push
+    pushbullet_client =
+      pushbullet_client(current_user.pushbullet_token)
+
+    response =
+      pushbullet_client.create(
+        {
+          body: "Test successfully passed.",
+          title: "poisci.ga push notification",
+          url: "https://poisci.ga",
+          type: "link"
+        }
+      )
+
+    current_user.push_logs.create!(
+      sender: response["sender_email"],
+      receiver: response["receiver_email"],
+      title: response["title"],
+      url: response["url"]
+    )
+
+    flash[:push_success] = "Push notification was successfully sent!"
+    respond_to do |format|
+      format.js
+    end
+
+  rescue Api::ClientError => e
+    flash[:push_alert] = "Pushbullet access token is missing or invalid."
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
+
+  def pushbullet_client(access_token)
+    Api::Pushbullet::Push.new(access_token: access_token)
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :pushbullet_token, :recipient)

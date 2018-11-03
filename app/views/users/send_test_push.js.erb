@@ -1,0 +1,6 @@
+$('.test-push-notification').html("<%= j render partial: 'test_push_notification' %>")
+<% flash.each do |type, message| %>
+<% if type == "push_success" || type == "push_alert"%>
+$("#flash-messages").append("<%= j content_tag :p, message.html_safe %>")
+<% end %>
+<% end %>
