@@ -13,7 +13,6 @@ class SessionsController < ApplicationController
         redirect_to login_path, login_notice: "To finish signing up, confirm your email and you're good to go!"
         return
       end
-
       session[:user_id] = user.id
       redirect_to root_path
     else
@@ -33,7 +32,8 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_path
     else
-      redirect_to login_path, alert: "Wrong confirmation token."
+      flash[:login_alert] = "Wrong confirmation token."
+      redirect_to login_path
     end
   end
 

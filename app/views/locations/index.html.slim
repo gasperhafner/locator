@@ -2,6 +2,7 @@ h1
   = "Whereabouts on #{@date}"
 
 #map style="width:100%; height:800px"
+
 - @locations.each do |location|
   input type="hidden" class="coordinates" data-latitude="#{location.latitude}" data-longitude="#{location.longitude}"
 javascript:
@@ -12,7 +13,7 @@ javascript:
 
         var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             osm = L.tileLayer(osmUrl, {maxZoom: 18}),
-            map = new L.Map('map', {center: new L.LatLng(center_latitude, center_longitude), zoom: 8}),
+            map = new L.Map('map', {center: new L.LatLng(center_latitude, center_longitude), zoom: 15}),
             drawnItems = L.featureGroup().addTo(map);
 
         L.control.layers({
@@ -23,8 +24,13 @@ javascript:
         }, {'drawlayer': drawnItems}, {position: 'topright', collapsed: false}).addTo(map);
 
 
+        var myIcon = L.icon({
+            iconUrl: "#{image_url('map_pin.png')}",
+            iconSize: [10, 10],
+        });
+
         $(".coordinates").each(function () {
-            var marker = new L.Marker(new L.LatLng($(this).data("latitude"), $(this).data("longitude")));
+            var marker = new L.Marker(new L.LatLng($(this).data("latitude"), $(this).data("longitude")), {icon: myIcon});
             drawnItems.addLayer(marker);
         });
     });

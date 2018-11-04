@@ -13,7 +13,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       UserMailer.confirmation(@user).deliver_later
-      redirect_to root_path, notice: "To finish signing up, confirm your email and you're good to go!"
+      flash[:login_notice] = "To finish signing up, confirm your email and you're good to go!"
+      redirect_to root_path
     else
       render :new
     end
