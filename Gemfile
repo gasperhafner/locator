@@ -57,6 +57,7 @@ gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap4'
+gem 'mailgun-ruby', '~>1.1.6'
 
 # Background/async processing
 gem 'sidekiq'

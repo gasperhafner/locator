@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update, :new, :create]
   resources :paths, only: [:index, :show, :create, :update, :destroy]
   resources :cities, only: [:index, :show, :new, :edit, :create, :update, :destroy]
+  resources :locations, only: [:index, :show, :new, :edit, :create, :update, :destroy]
 
   post "send_test_push", to: "users#send_test_push"
   get 'signup', to: 'users#new', as: 'signup'
