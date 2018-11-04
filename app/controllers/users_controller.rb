@@ -11,9 +11,8 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-
     if @user.save
-      flash.now[:login_notice] =  "To finish signing up, confirm your email and you're good to go!"
+      UserMailer.confirmation(@user).deliver_later
       redirect_to root_path, notice: "To finish signing up, confirm your email and you're good to go!"
     else
       render :new

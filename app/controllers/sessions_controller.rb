@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :redirect, only: [:new, :create]
+  before_action :redirect, only: [:new, :create, :confirmation]
 
   def new
   end
@@ -8,9 +8,9 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user && user.authenticate(params[:password])
-
       unless user.active?
-        redirect_to login_path, notice: "To finish signing up, confirm your email and you're good to go!"
+        UserMailer.confirmation(user).deliver_later
+        redirect_to login_path, login_notice: "To finish signing up, confirm your email and you're good to go!"
         return
       end
 
@@ -19,6 +19,21 @@ class SessionsController < ApplicationController
     else
       flash.now[:login_alert] = "Email or password is invalid"
       render "new"
+    end
+  end
+
+  def confirmation
+    user = User.find_by(confirmation_token: params[:token])
+    if user
+      if user.active?
+        redirect_to login_path, alert: "You already confirmed your account, please log in."
+        return
+      end
+      user.update(active: true)
+      session[:user_id] = user.id
+      redirect_to root_path
+    else
+      redirect_to login_path, alert: "Wrong confirmation token."
     end
   end
 
