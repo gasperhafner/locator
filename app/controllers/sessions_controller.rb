@@ -1,13 +1,10 @@
 class SessionsController < ApplicationController
+  before_action :redirect, only: [:new, :create]
+
   def new
   end
 
   def create
-    if user_signed_in?
-      redirect_to root_path
-      return
-    end
-
     user = User.find_by(email: params[:email])
 
     if user && user.authenticate(params[:password])
@@ -28,5 +25,13 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     redirect_to login_path
+  end
+
+  private
+
+  def redirect
+    if user_signed_in?
+      redirect_to root_path
+    end
   end
 end
