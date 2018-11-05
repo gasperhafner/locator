@@ -23,7 +23,8 @@ class City < ApplicationRecord
   end
 
   def geojson=(geojson)
-    polygon = RGeo::GeoJSON.decode(geojson, json_parser: :json)
+    self.polygon = RGeo::GeoJSON.decode(geojson, geo_factory: RGeo::Cartesian.simple_factory(srid: 4326))
+=begin
     coordinates = polygon
                     .geometry
                     .coordinates
@@ -32,5 +33,6 @@ class City < ApplicationRecord
                     .join(', ')
     query = "UPDATE cities SET polygon = ST_GeomFromText('POLYGON((#{coordinates}))',4326), updated_at = '#{Time.current.utc.iso8601}' WHERE id = '#{self.id}'"
     ActiveRecord::Base.connection.execute(query, :skip_logging)
+=end
   end
 end

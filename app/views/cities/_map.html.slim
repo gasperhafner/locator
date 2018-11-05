@@ -18,14 +18,14 @@ javascript:
         var center_latitude = $("#center_latitude").val();
         var center_longitude = $("#center_longitude").val();
 
-        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             osm = L.tileLayer(osmUrl, {maxZoom: 18}),
             map = new L.Map('map', {center: new L.LatLng(center_latitude, center_longitude), zoom: 13}),
             drawnItems = L.featureGroup().addTo(map);
 
         L.control.layers({
             'osm': osm.addTo(map),
-            "google": L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+            "google": L.tileLayer('https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
                 attribution: 'google'
             })
         }, {'drawlayer': drawnItems}, {position: 'topright', collapsed: false}).addTo(map);
@@ -37,10 +37,19 @@ javascript:
                     allowIntersection: false
                 }
             },
+
             draw: {
+                polyline: false,
+                rectangle: false,
+                circle: false,
+                marker: false,
+                circlemarker: false,
                 polygon: {
                     allowIntersection: false,
-                    showArea: true
+                    showArea: true,
+                    showLength: true,
+                    metric: 'km',
+                    feet: false
                 }
             }
         }));
@@ -58,7 +67,7 @@ javascript:
                     id: "geojson",
                     type: 'hidden',
                     name: 'city[geojson]',
-                    value: JSON.stringify(layer.toGeoJSON())
+                    value: JSON.stringify(layer.toGeoJSON().geometry)
                 }).appendTo('form');
                 $("#surface").val(L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]));
             });
@@ -71,7 +80,7 @@ javascript:
                 id: "geojson",
                 type: 'hidden',
                 name: 'city[geojson]',
-                value: JSON.stringify(layer.toGeoJSON())
+                value: JSON.stringify(layer.toGeoJSON().geometry)
             }).appendTo('form');
             $("#surface").val(L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]));
         });

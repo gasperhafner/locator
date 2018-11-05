@@ -26,16 +26,12 @@ class CitiesController < ApplicationController
 
   # POST /cities
   def create
-    if current_user.cities.create(city_params)
-      redirect_to cities_path, notice: 'Polygon was successfully created.'
-    else
-      render :new
-    end
+    city = current_user.cities.create(city_params)
+    redirect_to edit_city_path(city), notice: 'Polygon was successfully created.'
   end
 
   # PATCH/PUT /cities/1
   def update
-    # City.create(name: "test", polygon:"POLYGON((35 10, 10 20, 15 40, 45 45, 35 10))")
     if @city.update(city_params)
       redirect_to edit_city_path, notice: 'Polygon was successfully updated.'
     else
