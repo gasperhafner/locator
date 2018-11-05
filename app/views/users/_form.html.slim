@@ -10,7 +10,8 @@
     .col-sm-10
       = f.text_field :pushbullet_token, class: "form-control"
       small.text-muted
-        = "Create Pushbullet account and copy paste access token here."
+        = "Create <a class='btn-link' target='_blank' href='https://www.pushbullet.com'>Pushbullet account</a> and copy paste access token here.".html_safe
+
 
   .form-group.row
     = f.label :recipient, value:"Push notification recipients", class: "col-sm-2 col-form-label"
