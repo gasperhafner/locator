@@ -13,7 +13,7 @@ javascript:
 
         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             osm = L.tileLayer(osmUrl, {maxZoom: 18}),
-            map = new L.Map('map', {center: new L.LatLng(center_latitude, center_longitude), zoom: 15}),
+            map = new L.Map('map', {center: new L.LatLng(center_latitude, center_longitude), zoom: 10}),
             drawnItems = L.featureGroup().addTo(map);
 
         L.control.layers({
