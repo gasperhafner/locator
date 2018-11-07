@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
       end
       user.update(active: true)
       session[:user_id] = user.id
-      redirect_to root_path, notice: "You were automatically logged in. Have a great time using our app."
+      redirect_to root_path, notice: "Thank you for confirming your account. You were automatically logged in. Have a great time using our app."
     else
       flash[:login_alert] = "Wrong confirmation token."
       redirect_to login_path
