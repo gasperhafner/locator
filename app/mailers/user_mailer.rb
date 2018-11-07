@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: ENV["EMAIL_USERNAME"]
+  default from: "no-reply@poisci.ga"
 
   def confirmation(user)
     @url = "https://poisci.ga/confirmation?token=#{user.confirmation_token}"
