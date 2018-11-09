@@ -13,15 +13,11 @@ class SendPushNotificationJob < ApplicationJob
 
       next unless @city
 
-      send_push_notifications(user)
-
-=begin
       if user.push_logs.where.not(city: nil).any?
         send_push_notifications(user) if user.push_logs.where.not(city: nil).last.city.id != @city.id
       else
         send_push_notifications(user)
       end
-=end
     end
   end
 
