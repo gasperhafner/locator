@@ -13,11 +13,15 @@ class SendPushNotificationJob < ApplicationJob
 
       next unless @city
 
+      send_push_notifications(user)
+
+=begin
       if user.push_logs.where.not(city: nil).any?
         send_push_notifications(user) if user.push_logs.where.not(city: nil).last.city.id != @city.id
       else
         send_push_notifications(user)
       end
+=end
     end
   end
 
@@ -34,7 +38,7 @@ class SendPushNotificationJob < ApplicationJob
             body: "",
             email: recipient,
             title: "My current location: #{@city.name}",
-            url: "https://maps.google.com/?q=#{@last_location.latitude},#{@last_location.longitude}",
+            url: Rails.application.routes.url_helpers.live_locations_url(token: "test123", latitude: @last_location.latitude, longitude: @last_location.longitude),
             type: "link"
           }
         )

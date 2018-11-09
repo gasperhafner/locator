@@ -8,7 +8,7 @@ class CitiesController < ApplicationController
       current_user
         .cities
         .order(name: :asc)
-        .paginate(page: params[:page], per_page: 10)
+        .paginate(page: params[:page], per_page: 30)
   end
 
   # GET /cities/1

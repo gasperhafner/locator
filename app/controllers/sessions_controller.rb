@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
         redirect_to login_path, login_notice: "To finish signing up, confirm your email and you're good to go!"
         return
       end
-      session[:user_id] = user.id
+      cookies.encrypted[:user_id] = user.id
       redirect_to root_path
     else
       flash.now[:login_alert] = "Email or password is invalid"
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
         return
       end
       user.update(active: true)
-      session[:user_id] = user.id
+      cookies.encrypted[:user_id] = user.id
       redirect_to root_path, notice: "Thank you for confirming your account. You were automatically logged in. Have a great time using our app."
     else
       flash[:login_alert] = "Wrong confirmation token."
@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    cookies.encrypted[:user_id] = nil
     redirect_to login_path
   end
 

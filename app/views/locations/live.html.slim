@@ -1,0 +1,24 @@
+#map style="height: 100vh"
+#latitude data-latitude="#{@latitude}"
+#longitude data-longitude="#{@longitude}"
+javascript:
+    var center_latitude = $("#latitude").data("latitude");
+    var center_longitude = $("#longitude").data("longitude");
+
+    var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        osm = L.tileLayer(osmUrl, {maxZoom: 18}),
+        map = new L.Map('map', {
+            setView: true,
+            watch: true,
+            center: new L.LatLng(center_latitude, center_longitude),
+            zoom: 12
+        }),
+
+        drawnItems = L.featureGroup().addTo(map);
+
+    L.control.layers({
+        'osm': osm.addTo(map),
+        "google": L.tileLayer('https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+            attribution: 'google'
+        })
+    }, {'drawlayer': drawnItems}, {position: 'topright', collapsed: false}).addTo(map);

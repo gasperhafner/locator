@@ -12,6 +12,11 @@ class Api::V1::LocationsController < Api::V1::BaseController
         battery: params[:battery]
       )
 
+    ActionCable.server.broadcast 'locations',
+                                 latitude: location.latitude,
+                                 longitude: location.longitude
+    #head :ok
+
     render json: location, status: :ok
   end
 

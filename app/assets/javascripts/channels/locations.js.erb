@@ -1,0 +1,10 @@
+App.LocationsChannel = App.cable.subscriptions.create('LocationsChannel', {
+    received: function (data) {
+        console.log("test");
+        var myIcon = L.divIcon({className: 'marker'});
+        var marker = new L.Marker(new L.LatLng(data.latitude, data.longitude), {icon: myIcon});
+        //var marker = L.circle(new L.LatLng(data.latitude, data.longitude), 60).addTo(map);
+        drawnItems.clearLayers();
+        drawnItems.addLayer(marker);
+    }
+});

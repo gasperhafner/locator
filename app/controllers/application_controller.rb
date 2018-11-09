@@ -13,15 +13,15 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    if session[:user_id]
-      @current_user ||= User.find(session[:user_id])
+    if cookies.encrypted[:user_id]
+      @current_user ||= User.find(cookies.encrypted[:user_id])
     else
       @current_user = nil
     end
   end
 
   def authenticate!
-    unless session[:user_id]
+    unless cookies.encrypted[:user_id]
       redirect_to login_path
     end
   end
