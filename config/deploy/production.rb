@@ -11,6 +11,7 @@ namespace :deploy do
       # Your restart mechanism here, for example:
       execute "sudo systemctl restart rails.service"
       execute "sudo systemctl restart sidekiq.service"
+      execute "sudo systemctl restart websocket.service"
       #execute "sudo /usr/bin/monit restart sidekiq_staging_laundryheap_com"
     end
   end
