@@ -1,11 +1,27 @@
+/*App.LocationsChannel = App.cable.subscriptions.create('LocationsChannel', {
+
+    received: function (data) {
+        var myIcon = L.divIcon({className: 'marker'});
+        var marker = new L.Marker(new L.LatLng(data.latitude, data.longitude), {icon: myIcon});
+
+
+        //var marker = L.circle(new L.LatLng(data.latitude, data.longitude), 60).addTo(map);
+        drawnItems.clearLayers;
+        drawnItems.addLayer(marker);
+    }
+});*/
+
 App.LocationsChannel = App.cable.subscriptions.create('LocationsChannel', {
     received: function (data) {
         console.log("latitude: " + data.latitude);
         console.log("longitude: " + data.longitude);
-        var myIcon = L.divIcon({className: 'marker'});
-        var marker = new L.Marker(new L.LatLng(data.latitude, data.longitude), {icon: myIcon});
+
+        //var myIcon = L.divIcon({className: 'marker'});
+        //var marker = new L.Marker(new L.LatLng(data.latitude, data.longitude), {icon: myIcon});
         //var marker = L.circle(new L.LatLng(data.latitude, data.longitude), 60).addTo(map);
-        drawnItems.clearLayers();
-        drawnItems.addLayer(marker);
+        //drawnItems.clearLayers();
+
+        map.setView(new L.LatLng(data.latitude, data.longitude), 15, {animation: true});
+        marker.setLatLng(new L.LatLng(data.latitude, data.longitude));
     }
 });

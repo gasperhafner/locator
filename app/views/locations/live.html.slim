@@ -5,6 +5,9 @@ javascript:
     var latitude = $("#latitude").data("latitude");
     var longitude = $("#longitude").data("longitude");
 
+    var myIcon = L.divIcon({className: 'marker'});
+    var marker = new L.Marker(new L.LatLng(latitude, longitude), {icon: myIcon});
+
     var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         osm = L.tileLayer(osmUrl, {maxZoom: 18}),
         map = new L.Map('map', {
@@ -22,3 +25,5 @@ javascript:
             attribution: 'google'
         })
     }, {'drawlayer': drawnItems}, {position: 'topright', collapsed: false}).addTo(map);
+
+    drawnItems.addLayer(marker);
