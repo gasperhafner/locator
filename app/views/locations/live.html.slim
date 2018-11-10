@@ -2,16 +2,16 @@
 #latitude data-latitude="#{@latitude}"
 #longitude data-longitude="#{@longitude}"
 javascript:
-    var center_latitude = $("#latitude").data("latitude");
-    var center_longitude = $("#longitude").data("longitude");
+    var latitude = $("#latitude").data("latitude");
+    var longitude = $("#longitude").data("longitude");
 
     var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         osm = L.tileLayer(osmUrl, {maxZoom: 18}),
         map = new L.Map('map', {
             setView: true,
             watch: true,
-            center: new L.LatLng(center_latitude, center_longitude),
-            zoom: 12
+            center: new L.LatLng(latitude, longitude),
+            zoom: 15
         }),
 
         drawnItems = L.featureGroup().addTo(map);
