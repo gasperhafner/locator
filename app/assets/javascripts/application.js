@@ -41,4 +41,3 @@
 //= require Leaflet/Edit.Marker
 //= require Leaflet/Edit.CircleMarker
 //= require Leaflet/Edit.Circle
-//= require_tree .

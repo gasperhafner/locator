@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_secure_token :gps_token
   has_secure_token :confirmation_token
+  has_secure_token :stream_token
 
   validates :email, presence: true, uniqueness: true
 
@@ -12,5 +13,9 @@ class User < ApplicationRecord
 
   def active?
     active
+  end
+
+  def stream_location?
+    stream_location
   end
 end

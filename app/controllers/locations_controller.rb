@@ -8,11 +8,16 @@ class LocationsController < ApplicationController
   end
 
   def live
-    @latitude = params[:latitude].present? ? params[:latitude] : 46.167124
-    @longitude = params[:longitude].present? ? params[:longitude] : 14.306264
+    redirect unless params[:stream_token].present?
+    user = User.find_by(stream_token: params[:stream_token])
+    redirect unless user.present?
   end
 
   private
+
+  def redirect
+    redirect_to root_path, alert: "Non valid stream token!"
+  end
 
   def resolve_layout
     action_name == "live" ? "live" : "application"

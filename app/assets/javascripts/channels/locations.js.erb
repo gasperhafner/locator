@@ -1,27 +1,14 @@
-/*App.LocationsChannel = App.cable.subscriptions.create('LocationsChannel', {
+document.addEventListener('DOMContentLoaded', function () {
+    App.LocationsChannel = App.cable.subscriptions.create({
+        channel: 'LocationsChannel',
+        stream_token: $("#stream_token").data("token")
+    }, {
+        received: function (data) {
+            //console.log("latitude: " + data.latitude);
+            //console.log("longitude: " + data.longitude);
+            map.setView(new L.LatLng(data.latitude, data.longitude), 15, {animation: true});
+            marker.setLatLng(new L.LatLng(data.latitude, data.longitude));
+        }
+    });
+}, false);
 
-    received: function (data) {
-        var myIcon = L.divIcon({className: 'marker'});
-        var marker = new L.Marker(new L.LatLng(data.latitude, data.longitude), {icon: myIcon});
-
-
-        //var marker = L.circle(new L.LatLng(data.latitude, data.longitude), 60).addTo(map);
-        drawnItems.clearLayers;
-        drawnItems.addLayer(marker);
-    }
-});*/
-
-App.LocationsChannel = App.cable.subscriptions.create('LocationsChannel', {
-    received: function (data) {
-        console.log("latitude: " + data.latitude);
-        console.log("longitude: " + data.longitude);
-
-        //var myIcon = L.divIcon({className: 'marker'});
-        //var marker = new L.Marker(new L.LatLng(data.latitude, data.longitude), {icon: myIcon});
-        //var marker = L.circle(new L.LatLng(data.latitude, data.longitude), 60).addTo(map);
-        //drawnItems.clearLayers();
-
-        map.setView(new L.LatLng(data.latitude, data.longitude), 15, {animation: true});
-        marker.setLatLng(new L.LatLng(data.latitude, data.longitude));
-    }
-});

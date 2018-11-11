@@ -14,11 +14,18 @@
 
 
   .form-group.row
-    = f.label :recipient, value:"Push notification recipients", class: "col-sm-2 col-form-label"
+    = f.label :recipient, value: "Push notification recipients", class: "col-sm-2 col-form-label"
     .col-sm-10
       = f.text_field :recipient, class: "form-control"
       small.text-muted
         = "Emails associated with Pushbullet account separated by a comma."
+
+  .form-group.row
+    = f.label :stream_location, value: "Share your location", class: "col-sm-2 col-form-label"
+    .col-sm-10
+      = f.check_box :stream_location, class: "form-control"
+      small.text-muted
+        = "Share your location with your push notification recipients <a class='btn-link' target='_blank' href='#{live_locations_url(stream_token: current_user.stream_token)}'>link</a>.".html_safe
 
   .form-group.row
     .col-sm-2
@@ -29,4 +36,4 @@
   label.col-sm-2.col-form-label
     | Test push notification
   .col-sm-10.test-push-notification
-    = button_to "Send push notification to yourself", send_test_push_path, class:"btn btn-success btn-sm", method: :post, remote: true
+    = button_to "Send push notification to yourself", send_test_push_path, class: "btn btn-success btn-sm", method: :post, remote: true

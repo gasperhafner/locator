@@ -34,7 +34,11 @@ class SendPushNotificationJob < ApplicationJob
             body: "",
             email: recipient,
             title: "My current location: #{@city.name}",
-            url: Rails.application.routes.url_helpers.live_locations_url(token: "test123", latitude: @last_location.latitude, longitude: @last_location.longitude),
+            url: Rails.application.routes.url_helpers.live_locations_url(
+              stream_token: user.stream_token,
+              latitude: @last_location.latitude,
+              longitude: @last_location.longitude
+            ),
             type: "link"
           }
         )

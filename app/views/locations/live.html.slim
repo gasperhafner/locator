@@ -1,6 +1,9 @@
 #map style="height: 100vh"
-#latitude data-latitude="#{@latitude}"
-#longitude data-longitude="#{@longitude}"
+
+#latitude data-latitude="#{params['latitude']}"
+#longitude data-longitude="#{params['longitude']}"
+#stream_token data-token="#{params['stream_token']}"
+
 javascript:
     var latitude = $("#latitude").data("latitude");
     var longitude = $("#longitude").data("longitude");

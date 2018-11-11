@@ -12,10 +12,7 @@ class Api::V1::LocationsController < Api::V1::BaseController
         battery: params[:battery]
       )
 
-    ActionCable.server.broadcast 'locations',
-                                 latitude: location.latitude,
-                                 longitude: location.longitude
-    #head :ok
+    stream_location(params[:lat], params[:lon]) if @user.stream_location?
 
     render json: location, status: :ok
   end
@@ -38,6 +35,12 @@ class Api::V1::LocationsController < Api::V1::BaseController
   end
 
   private
+
+  def stream_location(latitude, longitude)
+    ActionCable.server.broadcast "locations_#{@user.stream_token}",
+                                 latitude: latitude,
+                                 longitude: longitude
+  end
 
   def find_user
     raise ApiExceptions::GpsTokenError::MissingGpsTokenError unless request.headers['GPS-token'].present?
