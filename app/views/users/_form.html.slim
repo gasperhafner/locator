@@ -6,34 +6,33 @@
           p.alert.alert-danger
             = message
   .form-group.row
-    = f.label :pushbullet_token, value: "Pushbullet access token", class: "col-sm-2 col-form-label"
-    .col-sm-10
+    = f.label :pushbullet_token, value: "Pushbullet access token", class: "col-sm-4 col-form-label"
+    .col-sm-8
       = f.text_field :pushbullet_token, class: "form-control"
       small.text-muted
         = "Create <a class='btn-link' target='_blank' href='https://www.pushbullet.com'>Pushbullet account</a> and copy paste access token here.".html_safe
 
-
   .form-group.row
-    = f.label :recipient, value: "Push notification recipients", class: "col-sm-2 col-form-label"
-    .col-sm-10
+    = f.label :recipient, value: "Push notification recipients", class: "col-sm-4 col-form-label"
+    .col-sm-8
       = f.text_field :recipient, class: "form-control"
       small.text-muted
         = "Emails associated with Pushbullet account separated by a comma."
 
   .form-group.row
-    = f.label :stream_location, value: "Share your location", class: "col-sm-2 col-form-label"
-    .col-sm-10
+    = f.label :stream_location, value: "Share your location", class: "col-sm-4 col-form-label"
+    .col-sm-8
       = f.check_box :stream_location, class: "form-control"
       small.text-muted
         = "Share your location with your push notification recipients <a class='btn-link' target='_blank' href='#{live_locations_url(stream_token: current_user.stream_token)}'>link</a>.".html_safe
 
   .form-group.row
-    .col-sm-2
-    .col-sm-10
+    .col-sm-4
+    .col-sm-8
       button.btn.btn-primary.btn-sm type="submit" Save
 
 .form-group.row
-  label.col-sm-2.col-form-label
+  label.col-sm-4.col-form-label
     | Test push notification
-  .col-sm-10.test-push-notification
-    = button_to "Send push notification to yourself", send_test_push_path, class: "btn btn-success btn-sm", method: :post, remote: true
+  .col-sm-8.test-push-notification
+    = button_to "Send test push notification", send_test_push_path, class: "btn btn-success btn-sm", method: :post, remote: true

@@ -1,34 +1,42 @@
-h1 User settings
-hr
-== render 'form'
+.row
+  .col-lg-6
+    h4 1. User settings
+    hr
+    == render 'form'
+  .col-lg-6
+    h4
+      = "2. GPS Logger config - <a class='btn-link' href='https://play.google.com/store/apps/details?id=com.mendhak.gpslogger' target='_blank'>GPS Logger app</a>".html_safe
+    hr
+    p In GPS Logger app go to Logging details > Log to custom URL and set below parameters
 
-h4
-  | GPS Logger config (install GPS Logger)
-a class="btn-link" href="https://play.google.com/store/apps/details?id=com.mendhak.gpslogger&hl=sl" target="_blank"
-  | GPS Logger app url
-hr
-p In GPS Logger app go to Logging details > Log to custom URL and set below parameters
-
-table.table
-  tr
-    th Property
-    th Value
-  tr
-    td URL
-    td https://poisci.ga/api/v1/locations
-  tr
-    td HTTP Body
-    td
-      | {"lat":%LAT, "lon":%LON, "speed":%SPD, "battery":%BATT, "provider":"%PROV", "time":"%TIME"}
-  tr
-    td HTTP Headers
-    td
-      | Content-Type: application/json
-      br
-      = "GPS-token: #{current_user.gps_token}"
-  tr
-    td HTTP Method
-    td
-      | POST
+    .row.mb-4
+      .col-4
+        strong
+          | Property
+      .col-8
+        strong
+          | Value
+    .row.mb-4
+      .col-4
+        | URL
+      .col-8
+        | https://poisci.ga/api/v1/locations
+    .row.mb-4
+      .col-4
+        | HTTP Body
+      .col-8
+        | {"lat":%LAT, "lon":%LON, "speed":%SPD, "battery":%BATT, "provider":"%PROV", "time":"%TIME"}
+    .row.mb-4
+      .col-4
+        | HTTP Headers
+      .col-8
+        | Content-Type: application/json
+        br
+        = "GPS-token: #{current_user.gps_token}"
+    .row.mb-4
+      .col-4
+        | HTTP Method
+      .col-8
+        | POST
 
 
